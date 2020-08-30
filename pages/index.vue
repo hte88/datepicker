@@ -149,7 +149,7 @@ export default {
   data() {
     return {
       date: moment(),
-      dateFromSelect: '01 janvier 2001',
+      dateFromSelect: moment('2000-01-01', 'DD-MM-YYYY'),
       dateEnd: '',
       months: moment.months(),
       isVisible: false,
@@ -160,9 +160,7 @@ export default {
   computed: {},
   methods: {
     setMonth(value) {
-      const newValue = moment('01')
-        .month(value)
-        .year('2020')
+      const newValue = moment('01' + value + '2020', 'DD MMMM YYYY')
       this.dateFromSelect = newValue
       this.openDatepicke = true
       this.isVisible = true
