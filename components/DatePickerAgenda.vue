@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="visible" class="datepicker border shadow flex" @click.stop>
+  <div v-if="visible">
+    <div class="datepicker border shadow flex" @click.stop>
       <div class="datepicker__options bg-blue-400">
         <div class="datepicker__header bg-blue-400 p-4">
           <div class="datepicker__year">{{ year }}</div>
@@ -17,7 +17,7 @@
             @click="prevMonth()"
           >
             <img
-              :src="require('../assets/img/chevron-left-solid.svg')"
+              :src="require('~/assets/img/chevron-left-solid.svg')"
               alt="Previous"
             />
           </button>
@@ -26,18 +26,23 @@
             @click="nextMonth()"
           >
             <img
-              :src="require('../assets/img/chevron-right-solid.svg')"
+              :src="require('~/assets/img/chevron-right-solid.svg')"
               alt="Next"
             />
           </button>
         </div>
-        <div class="datepicker__week">
+        <div v-if="typeInput === 'multiple'" class="datepicker__week">
           <div
             v-for="day in days"
             :key="day.index"
             class="datepicker__weekday cursor-pointer hover:text-blue-500"
             @click="selectDateByDay(day.long)"
           >
+            {{ day.short }}
+          </div>
+        </div>
+        <div v-else class="datepicker__week">
+          <div v-for="day in days" :key="day.index" class="datepicker__weekday">
             {{ day.short }}
           </div>
         </div>
@@ -52,7 +57,13 @@
             class="datepicker__day"
             :class="{ selected: isSelected(day) }"
           >
-            <div v-if="firstSelect > day && secondSelect === ''">
+            <div
+              v-if="
+                firstSelect > day &&
+                  secondSelect === null &&
+                  typeInput === 'startEnd'
+              "
+            >
               <span class="datepicker__day__text text-gray-300">{{
                 day.format('DD')
               }}</span>
@@ -93,7 +104,8 @@ export default {
   components: {},
   props: {
     date: { type: Object, default: null },
-    visible: { type: Boolean, default: false }
+    visible: { type: Boolean, default: false },
+    typeInput: { type: String, default: null }
   },
   data() {
     return {
@@ -117,7 +129,8 @@ export default {
       clicked: true,
       firstSelect: null,
       firstSelected: null,
-      secondSelect: null
+      secondSelect: null,
+      secondSelected: null
     }
   },
   computed: {
@@ -140,8 +153,8 @@ export default {
       this.secondSelect = null
     },
     isSelected(day) {
-      if (this.selectDay === '') {
-        if (this.firstSelected) {
+      if (this.selectDay === null) {
+        if (this.firstSelected !== null) {
           if (
             this.firstSelected === day.unix() ||
             (this.firstSelected <= day.unix() &&
@@ -159,7 +172,54 @@ export default {
         }
       }
     },
+    initValCalendar() {
+      this.monthListDay = []
+      this.monthList = []
+      this.selectDay = null
+      this.secondSelect = null
+    },
+    selectOneDay(day) {
+      this.$emit('valueInput', day.clone())
+      this.firstSelect = day
+      this.firstSelected = day.unix()
+    },
+    selectTwoDays(day) {
+      // this.initValCalendar()
+      if (this.clicked === true) {
+        this.monthListDay = []
+        this.monthList = []
+        this.selectDay = null
+        if (this.secondSelect === null) {
+          this.$emit('update-date-end', day.clone())
+        }
+        this.secondSelect = null
+        this.$emit('update-date-start', day.clone(), 'update-date-end', null)
+        this.firstSelect = day
+        this.firstSelected = day.unix()
+        this.clicked = !this.clicked
+      } else {
+        this.clicked = !this.clicked
+        if (this.firstSelect <= day) {
+          this.$emit('update-date-end', day.clone())
+          this.secondSelect = day
+          this.secondSelected = day.unix()
+        }
+      }
+    },
     selectDate(day) {
+      switch (this.typeInput) {
+        case 'select':
+        case 'single':
+          this.selectOneDay(day)
+          break
+        case 'startEnd':
+          this.selectTwoDays(day)
+          break
+        case 'multiple':
+          // this.selectTwoDays(day)
+          break
+      }
+      /*
       if (this.clicked) {
         this.monthListDay = []
         this.monthList = []
@@ -180,6 +240,7 @@ export default {
           this.secondSelected = day.unix()
         }
       }
+      */
     },
     getDays() {
       const range1 = Moment.range(
@@ -226,6 +287,7 @@ export default {
       })
       const res = result.filter((val) => val)
       this.monthListDay = res
+      this.$emit('update-multiple', res)
     },
     actionSubmit() {
       this.$emit('actionSubmit', false)

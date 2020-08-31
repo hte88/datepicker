@@ -4,22 +4,35 @@
       :type-input="typeInput"
       :label="labelInput"
       :value="valueInput"
+      :value-start="valueInputStart"
+      :value-end="valueInputEnd"
       @showDatepicker="showDatepicker"
     ></DatePickerInput>
     <DatePickerAgenda
+      :type-input="typeInput"
       :date="date"
       :visible="isVisible"
       @valueInput="sendValueInput"
+      @update-multiple="multipleData"
+      @update-date-start="updateStart"
+      @update-date-end="updateEnd"
       @actionSubmit="actionSubmit"
       @actionCancel="actionCancel"
     ></DatePickerAgenda>
-    {{ this.valueInput }}
+    <input
+      v-if="typeInput === 'select' && valueInput !== null"
+      type="text"
+      class="cursor-not-allowed mt-2 appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-white leading-normal w-full border h-10 border-grey-light rounded relative"
+      :value="valueInput"
+      disabled
+    />
   </div>
 </template>
 <script>
+import moment from 'moment'
 import DatePickerInput from '~/components/DatePickerInput'
 import DatePickerAgenda from '~/components/DatePickerAgenda'
-
+moment.locale('fr')
 export default {
   components: {
     DatePickerInput,
@@ -33,7 +46,9 @@ export default {
   data() {
     return {
       isVisible: false,
-      valueInput: null
+      valueInput: null,
+      valueInputStart: null,
+      valueInputEnd: null
     }
   },
   computed: {},
@@ -42,8 +57,26 @@ export default {
      ** Renvoi la date vers l'input
      */
     sendValueInput(data) {
-      console.log(data)
-      this.valueInput = data
+      this.valueInput = data.format('dddd DD MMMM YYYY')
+    },
+    /*
+     ** Tri & renvoi la date vers l'input
+     */
+    multipleData(data) {
+      const result = data.map((item) => {
+        return item.format('dddd DD MMMM')
+      })
+      this.valueInput = result.toString()
+    },
+    updateStart(data) {
+      if (data) {
+        this.valueInputStart = data.format('DD MMMM YYYY')
+      }
+    },
+    updateEnd(data) {
+      if (data) {
+        this.valueInputEnd = data.format('DD MMMM YYYY')
+      }
     },
     /*
      ** Affiche le calendrier

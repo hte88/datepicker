@@ -10,9 +10,6 @@
             :date="dateFromSelect"
             :type-input="'select'"
             :label="'By Month'"
-            @update-date-start="updateStart"
-            @update-date-end="updateEnd"
-            @update-multiple="multipleData"
           ></date-picker>
         </div>
       </div>
@@ -25,9 +22,6 @@
             :date="dateFromSelect"
             :type-input="'single'"
             :label="'Date'"
-            @update-date-start="updateStart"
-            @update-date-end="updateEnd"
-            @update-multiple="multipleData"
           ></date-picker>
         </div>
       </div>
@@ -40,9 +34,6 @@
             :date="dateFromSelect"
             :type-input="'startEnd'"
             :label="null"
-            @update-date-start="updateStart"
-            @update-date-end="updateEnd"
-            @update-multiple="multipleData"
           ></date-picker>
         </div>
       </div>
@@ -55,9 +46,6 @@
             :date="dateFromSelect"
             :type-input="'multiple'"
             :label="'Multiple'"
-            @update-date-start="updateStart"
-            @update-date-end="updateEnd"
-            @update-multiple="multipleData"
           ></date-picker>
         </div>
       </div>
@@ -76,35 +64,13 @@ export default {
   data() {
     return {
       date: moment(),
-      dateFromSelect: moment('2000-01-01', 'DD-MM-YYYY'),
+      dateFromSelect: moment('2020-01-01', 'DD-MM-YYYY'),
       dateEnd: '',
       multiple: []
     }
   },
   computed: {},
-  methods: {
-    updateStart(updateDate) {
-      if (updateDate) {
-        this.dateFromSelect = updateDate
-      }
-    },
-    updateEnd(updateDate) {
-      if (updateDate) {
-        this.dateEnd = updateDate.format('DD MMMM YYYY')
-      }
-    },
-    /*
-    visible(data) {
-      this.isVisible = data
-    },
-    */
-    multipleData(data) {
-      const result = data.map((item) => {
-        return item.format('dddd DD MMMM')
-      })
-      this.multiple = result
-    }
-  }
+  methods: {}
 }
 </script>
 

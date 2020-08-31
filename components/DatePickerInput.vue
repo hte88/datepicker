@@ -41,7 +41,7 @@
       <div class="flex flex-wrap items-stretch w-full mb-4 relative">
         <input
           type="text"
-          :value="valueInput"
+          :value="value"
           class="appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
           placeholder="01-01-2000"
           @click="showDatepicker"
@@ -72,7 +72,7 @@
           <div class="flex flex-wrap items-stretch w-full mb-4 relative">
             <input
               type="text"
-              :value="valueInput"
+              :value="valueStart"
               class="appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
               @click="showDatepicker"
             />
@@ -99,7 +99,7 @@
           <div class="flex flex-wrap items-stretch w-full mb-4 relative">
             <input
               type="text"
-              :value="valueInput"
+              :value="valueEnd"
               class="appearance-none text-gray-700  py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
               @click="showDatepicker"
             />
@@ -129,7 +129,7 @@
       <div class="flex flex-wrap items-stretch w-full mb-4 relative">
         <input
           type="text"
-          :value="valueInput"
+          :value="value"
           class="appearance-none text-gray-700 border rounded py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px h-10 border-grey-light rounded-r-none relative"
           @click="showDatepicker"
         />
@@ -157,12 +157,14 @@ export default {
   props: {
     labelInput: { type: String, default: null },
     typeInput: { type: String, default: null },
-    valueInput: { type: Object, default: null },
+    value: { type: String, default: null },
+    valueStart: { type: String, default: null },
+    valueEnd: { type: String, default: null },
     isVisible: { type: Boolean, default: false }
   },
   data() {
     return {
-      dateFromSelect: moment('2000-01-01', 'DD-MM-YYYY'),
+      dateFromSelect: moment('2020-01-01', 'DD-MM-YYYY'),
       openDatepicke: false,
       months: moment.months()
     }
