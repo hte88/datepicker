@@ -2,7 +2,7 @@
   <div>
     <DatePickerInput
       :type-input="typeInput"
-      :label="labelInput"
+      :labelInput="label"
       :value="valueInput"
       :value-start="valueInputStart"
       :value-end="valueInputEnd"
@@ -40,7 +40,7 @@ export default {
   },
   props: {
     typeInput: { type: String, default: null },
-    labelInput: { type: String, default: null },
+    label: { type: String, default: null },
     date: { type: Object, default: null }
   },
   data() {

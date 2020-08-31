@@ -219,28 +219,6 @@ export default {
           // this.selectTwoDays(day)
           break
       }
-      /*
-      if (this.clicked) {
-        this.monthListDay = []
-        this.monthList = []
-        this.selectDay = ''
-        if (this.secondSelect === '') {
-          this.$emit('update-date-end', day.clone())
-        }
-        this.secondSelect = ''
-        this.$emit('update-date-start', day.clone(), 'update-date-end', '')
-        this.firstSelect = day
-        this.firstSelected = day.unix()
-        this.clicked = !this.clicked
-      } else {
-        this.clicked = !this.clicked
-        if (this.firstSelect <= day) {
-          this.$emit('update-date-end', day.clone())
-          this.secondSelect = day
-          this.secondSelected = day.unix()
-        }
-      }
-      */
     },
     getDays() {
       const range1 = Moment.range(

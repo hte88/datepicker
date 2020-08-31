@@ -3,8 +3,9 @@
     <!-- Type Input Only -->
     <div v-if="typeInput === 'select'">
       <label
+        v-if="labelInput"
         class="flex uppercase tracking-wide text-gray-700 text-xs font-bold"
-        >By Month</label
+        >{{ labelInput }}</label
       >
       <div class="inline-block relative w-full">
         <select
@@ -35,15 +36,16 @@
     <!-- Type Input Only -->
     <div v-if="typeInput === 'single'">
       <label
+        v-if="labelInput"
         class="flex uppercase tracking-wide text-gray-700 text-xs font-bold"
-        >Date</label
+        >{{ labelInput }}</label
       >
       <div class="flex flex-wrap items-stretch w-full mb-4 relative">
         <input
           type="text"
           :value="value"
-          class="appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
-          placeholder="01-01-2000"
+          disabled
+          class="cursor-not-allowed appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
           @click="showDatepicker"
         />
         <div class="flex -mr-px">
@@ -52,7 +54,7 @@
             @click="showDatepicker"
           >
             <img
-              :src="require('../assets/img/calendar-alt-regular.svg')"
+              :src="require('~/assets/img/calendar-alt-regular.svg')"
               class="w-6 h-6"
               alt="Calendar"
             />
@@ -73,7 +75,8 @@
             <input
               type="text"
               :value="valueStart"
-              class="appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
+              disabled
+              class="cursor-not-allowed appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
               @click="showDatepicker"
             />
             <div class="flex -mr-px">
@@ -82,7 +85,7 @@
                 @click="showDatepicker"
               >
                 <img
-                  :src="require('../assets/img/calendar-alt-regular.svg')"
+                  :src="require('~/assets/img/calendar-alt-regular.svg')"
                   class="w-6 h-6"
                   alt="Calendar"
                 />
@@ -100,7 +103,8 @@
             <input
               type="text"
               :value="valueEnd"
-              class="appearance-none text-gray-700  py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
+              disabled
+              class="cursor-not-allowed appearance-none text-gray-700  py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
               @click="showDatepicker"
             />
             <div class="flex -mr-px">
@@ -109,7 +113,7 @@
                 @click="showDatepicker"
               >
                 <img
-                  :src="require('../assets/img/calendar-alt-regular.svg')"
+                  :src="require('~/assets/img/calendar-alt-regular.svg')"
                   class="w-6 h-6"
                   alt="Calendar"
                 />
@@ -122,15 +126,17 @@
     <!-- Type Input Multiple -->
     <div v-if="typeInput === 'multiple'">
       <label
+        v-if="labelInput"
         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
       >
-        Multiple
+        {{ labelInput }}
       </label>
       <div class="flex flex-wrap items-stretch w-full mb-4 relative">
         <input
           type="text"
           :value="value"
-          class="appearance-none text-gray-700 border rounded py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px h-10 border-grey-light rounded-r-none relative"
+          disabled
+          class="cursor-not-allowed appearance-none text-gray-700 border rounded py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px h-10 border-grey-light rounded-r-none relative"
           @click="showDatepicker"
         />
         <div class="flex -mr-px">
@@ -139,7 +145,7 @@
             @click="showDatepicker"
           >
             <img
-              :src="require('../assets/img/calendar-alt-regular.svg')"
+              :src="require('~/assets/img/calendar-alt-regular.svg')"
               class="w-6 h-6"
               alt="Calendar"
             />
@@ -156,7 +162,7 @@ moment.locale('fr')
 export default {
   props: {
     labelInput: { type: String, default: null },
-    typeInput: { type: String, default: null },
+    typeInput: { type: String, default: 'single' },
     value: { type: String, default: null },
     valueStart: { type: String, default: null },
     valueEnd: { type: String, default: null },
@@ -164,7 +170,7 @@ export default {
   },
   data() {
     return {
-      dateFromSelect: moment('2020-01-01', 'DD-MM-YYYY'),
+      dateFromSelect: moment('01 01 2020', 'DD MM YYYY'),
       openDatepicke: false,
       months: moment.months()
     }
