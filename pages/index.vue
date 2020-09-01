@@ -6,7 +6,7 @@
           Step 1 : Select
         </h1>
         <h2 class=" font-semibold text-gray-500 mb-10">
-          Select a month and one day
+          Select a month then a day
         </h2>
         <div class="w-full mb-3">
           <date-picker
@@ -21,7 +21,7 @@
           Step 2 : Single
         </h1>
         <h2 class=" font-semibold text-gray-500 mb-10">
-          Select one day
+          Select a single day
         </h2>
         <div class="w-full mb-3">
           <date-picker
@@ -48,10 +48,10 @@
       </div>
       <div class="w-full border-b pb-10 mb-10">
         <h1 class="text-left text-xl uppercase font-semibold">
-          Step 4 : multiple
+          Step 4 : Weekday
         </h1>
         <h2 class=" font-semibold text-gray-500 mb-10">
-          Select a weekday
+          Select a weekday by example : click on Monday or Tuesday, ...
         </h2>
         <div class="w-full mb-3">
           <date-picker
@@ -89,12 +89,6 @@
               <td>Date value of the datepicker</td>
             </tr>
             <tr>
-              <td>format</td>
-              <td>String</td>
-              <td>dd MMMM YYYY</td>
-              <td>Date formatting string or function</td>
-            </tr>
-            <tr>
               <td>label</td>
               <td>String</td>
               <td></td>
@@ -125,7 +119,8 @@ export default {
   data() {
     return {
       date: moment(),
-      dateFromSelect: moment('01 01 2020', 'DD MM YYYY'),
+      dateFromSelect: moment(),
+      dateFormat: 'DD MM YYYY',
       dateEnd: '',
       multiple: []
     }

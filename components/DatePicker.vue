@@ -2,16 +2,18 @@
   <div>
     <DatePickerInput
       :type-input="typeInput"
-      :labelInput="label"
+      :label-input="label"
       :value="valueInput"
       :value-start="valueInputStart"
       :value-end="valueInputEnd"
       @showDatepicker="showDatepicker"
+      @valueSelect="sendValueSelect"
     ></DatePickerInput>
     <DatePickerAgenda
       :type-input="typeInput"
       :date="date"
       :visible="isVisible"
+      :month-select="valueSelect"
       @valueInput="sendValueInput"
       @update-multiple="multipleData"
       @update-date-start="updateStart"
@@ -41,27 +43,31 @@ export default {
   props: {
     typeInput: { type: String, default: null },
     label: { type: String, default: null },
-    date: { type: Object, default: null }
+    date: { type: Object, default: null },
+    format: { type: String, default: 'DD MMMM YYYY' }
   },
   data() {
     return {
       isVisible: false,
       valueInput: null,
       valueInputStart: null,
-      valueInputEnd: null
+      valueInputEnd: null,
+      valueSelect: null
     }
   },
   computed: {},
   methods: {
-    /*
-     ** Renvoi la date vers l'input
-     */
+    formattedDate(data) {
+      return data.format(this.format)
+    },
+    sendValueSelect(data) {
+      if (data) {
+        this.valueSelect = data
+      }
+    },
     sendValueInput(data) {
       this.valueInput = data.format('dddd DD MMMM YYYY')
     },
-    /*
-     ** Tri & renvoi la date vers l'input
-     */
     multipleData(data) {
       const result = data.map((item) => {
         return item.format('dddd DD MMMM')
@@ -78,9 +84,6 @@ export default {
         this.valueInputEnd = data.format('DD MMMM YYYY')
       }
     },
-    /*
-     ** Affiche le calendrier
-     */
     showDatepicker() {
       this.isVisible = true
       setTimeout(
@@ -88,21 +91,12 @@ export default {
         1
       )
     },
-    /*
-     ** Valide le calendrier
-     */
     actionSubmit() {
       this.hideDatePicker()
     },
-    /*
-     ** Ferme le calendrier
-     */
     actionCancel() {
       this.hideDatePicker()
     },
-    /*
-     ** Cache le calendrier
-     */
     hideDatePicker() {
       this.isVisible = false
       setTimeout(

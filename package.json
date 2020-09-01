@@ -13,10 +13,17 @@
     "test": "jest"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-brands-svg-icons": "^5.14.0",
+    "@fortawesome/free-regular-svg-icons": "^5.14.0",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/vue-fontawesome": "^2.0.0",
     "@nuxtjs/dotenv": "^1.4.0",
     "moment": "^2.27.0",
     "moment-range": "^4.0.2",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "nuxt-fontawesome": "^0.4.0",
+    "nuxt-svg-loader": "^1.2.0"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^1.0.0",

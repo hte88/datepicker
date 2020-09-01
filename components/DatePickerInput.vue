@@ -13,7 +13,7 @@
           value="Janvier"
           @input="setMonth($event.target.value)"
         >
-          <option selected value="null">Choose month</option>
+          <option selected value="null" disabled>Choose month</option>
           <option v-for="month in months" :key="month" :value="month" class="">
             {{ month }}
           </option>
@@ -45,7 +45,7 @@
           type="text"
           :value="value"
           disabled
-          class="cursor-not-allowed appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
+          class="cursor-not-allowed appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-gray-200 flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
           @click="showDatepicker"
         />
         <div class="flex -mr-px">
@@ -53,10 +53,9 @@
             class="flex items-center leading-normal bg-grey-lighter rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm"
             @click="showDatepicker"
           >
-            <img
-              :src="require('~/assets/img/calendar-alt-regular.svg')"
-              class="w-6 h-6"
-              alt="Calendar"
+            <font-awesome-icon
+              :icon="['far', 'calendar-alt']"
+              class="fa-lg hover:text-blue-500 cursor-pointer"
             />
           </span>
         </div>
@@ -76,7 +75,7 @@
               type="text"
               :value="valueStart"
               disabled
-              class="cursor-not-allowed appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
+              class="cursor-not-allowed appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-gray-200 flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
               @click="showDatepicker"
             />
             <div class="flex -mr-px">
@@ -84,10 +83,9 @@
                 class="flex items-center leading-normal bg-grey-lighter rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm"
                 @click="showDatepicker"
               >
-                <img
-                  :src="require('~/assets/img/calendar-alt-regular.svg')"
-                  class="w-6 h-6"
-                  alt="Calendar"
+                <font-awesome-icon
+                  :icon="['far', 'calendar-alt']"
+                  class="fa-lg hover:text-blue-500 cursor-pointer"
                 />
               </span>
             </div>
@@ -104,7 +102,7 @@
               type="text"
               :value="valueEnd"
               disabled
-              class="cursor-not-allowed appearance-none text-gray-700  py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
+              class="cursor-not-allowed appearance-none text-gray-700  py-3 px-4 focus:outline-none bg-gray-200 flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
               @click="showDatepicker"
             />
             <div class="flex -mr-px">
@@ -112,10 +110,9 @@
                 class="flex items-center leading-normal bg-grey-lighter rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm"
                 @click="showDatepicker"
               >
-                <img
-                  :src="require('~/assets/img/calendar-alt-regular.svg')"
-                  class="w-6 h-6"
-                  alt="Calendar"
+                <font-awesome-icon
+                  :icon="['far', 'calendar-alt']"
+                  class="fa-lg hover:text-blue-500 cursor-pointer"
                 />
               </span>
             </div>
@@ -136,7 +133,7 @@
           type="text"
           :value="value"
           disabled
-          class="cursor-not-allowed appearance-none text-gray-700 border rounded py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px h-10 border-grey-light rounded-r-none relative"
+          class="cursor-not-allowed appearance-none text-gray-700 border rounded py-3 px-4 focus:outline-none bg-gray-200 flex-shrink flex-grow leading-normal w-px h-10 border-grey-light rounded-r-none relative"
           @click="showDatepicker"
         />
         <div class="flex -mr-px">
@@ -144,10 +141,9 @@
             class="flex items-center leading-normal bg-grey-lighter rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm"
             @click="showDatepicker"
           >
-            <img
-              :src="require('~/assets/img/calendar-alt-regular.svg')"
-              class="w-6 h-6"
-              alt="Calendar"
+            <font-awesome-icon
+              :icon="['far', 'calendar-alt']"
+              class="fa-lg hover:text-blue-500 cursor-pointer"
             />
           </span>
         </div>
@@ -181,6 +177,7 @@ export default {
       const newValue = moment('01' + value + '2020', 'DD MMMM YYYY')
       this.dateFromSelect = newValue
       this.openDatepicke = true
+      this.$emit('valueSelect', newValue)
       this.showDatepicker()
     },
     showDatepicker() {

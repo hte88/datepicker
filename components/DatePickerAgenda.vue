@@ -1,60 +1,73 @@
 <template>
   <div v-if="visible">
-    <div class="datepicker border shadow flex" @click.stop>
-      <div class="datepicker__options bg-blue-400">
-        <div class="datepicker__header bg-blue-400 p-4">
-          <div class="datepicker__year">{{ year }}</div>
-          <div class="datepicker__date">
+    <div
+      class="relative mt-3 bg-white overflow-auto z-10 border shadow rounded-lg flex"
+      @click.stop
+    >
+      <div class="datepicker_options border-l bg-blue-400">
+        <div class="h-20 text-white text-left p-4 bg-blue-400">
+          <div class="relative overflow-hidden mb-2 leading-3 h-3">
+            {{ year }}
+          </div>
+          <div class="relative capitalize text-3xl leading-8">
             {{ date.format('dddd DD MMMM') }}
           </div>
         </div>
       </div>
-      <div class="datepicker__calendar">
-        <div class="datepicker__controls flex items-center justify-between">
-          <div class="datepicker__month">{{ month }}</div>
+      <div class="datepicker_calendar m-auto">
+        <div
+          class="h-10 leading-10 my-2 flex items-center justify-between text-center relative"
+        >
+          <div class="capitalize inset-0 absolute text-xl">
+            {{ month }}
+          </div>
           <button
-            class="datepicker__prev focus:outline-none"
+            class="float-left ml-5 cursor-pointer w-3 h-4 relative focus:outline-none"
             @click="prevMonth()"
           >
-            <img
-              :src="require('~/assets/img/chevron-left-solid.svg')"
-              alt="Previous"
+            <font-awesome-icon
+              :icon="['fas', 'chevron-left']"
+              class="absolute left-0 top-0 fa-lg hover:text-blue-500"
             />
           </button>
           <button
-            class="datepicker__next focus:outline-none"
+            class="float-right mr-5 cursor-pointer w-3 h-4 relative focus:outline-none"
             @click="nextMonth()"
           >
-            <img
-              :src="require('~/assets/img/chevron-right-solid.svg')"
-              alt="Next"
+            <font-awesome-icon
+              :icon="['fas', 'chevron-right']"
+              class="absolute right-0 top-0 fa-lg hover:text-blue-500"
             />
           </button>
         </div>
-        <div v-if="typeInput === 'multiple'" class="datepicker__week">
+        <div v-if="typeInput === 'multiple'" class="h-3 leading-3 p-3 text-xs">
           <div
             v-for="day in days"
             :key="day.index"
-            class="datepicker__weekday cursor-pointer hover:text-blue-500"
+            class="datepicker_weekday text-center float-left cursor-pointer hover:text-blue-500"
             @click="selectDateByDay(day.long)"
           >
             {{ day.short }}
           </div>
         </div>
-        <div v-else class="datepicker__week">
-          <div v-for="day in days" :key="day.index" class="datepicker__weekday">
+        <div v-else class="h-3 leading-3 p-3 text-xs">
+          <div
+            v-for="day in days"
+            :key="day.index"
+            class="datepicker_weekday text-center float-left"
+          >
             {{ day.short }}
           </div>
         </div>
-        <div class="datepicker__days">
+        <div class="relative overflow-hidden mx-3 mt-3">
           <div
-            class="datepicker__day"
+            class="datepicker_day"
             :style="{ width: getWeekStart() * 41 + 'px' }"
           ></div>
           <div
             v-for="day in getDays()"
             :key="day.i"
-            class="datepicker__day"
+            class="datepicker_day"
             :class="{ selected: isSelected(day) }"
           >
             <div
@@ -64,13 +77,11 @@
                   typeInput === 'startEnd'
               "
             >
-              <span class="datepicker__day__text text-gray-300">{{
-                day.format('DD')
-              }}</span>
+              <span class="relative text-gray-300">{{ day.format('DD') }}</span>
             </div>
             <div v-else @click="selectDate(day)">
-              <span class="datepicker__day__effect"></span>
-              <span class="datepicker__day__text">{{ day.format('DD') }}</span>
+              <span class="datepicker_day_effect"></span>
+              <span class="relative">{{ day.format('DD') }}</span>
             </div>
           </div>
         </div>
@@ -97,6 +108,7 @@
 <script>
 import moment from 'moment'
 import { extendMoment } from 'moment-range'
+
 const Moment = extendMoment(moment)
 moment.locale('fr')
 
@@ -105,7 +117,8 @@ export default {
   props: {
     date: { type: Object, default: null },
     visible: { type: Boolean, default: false },
-    typeInput: { type: String, default: null }
+    typeInput: { type: String, default: null },
+    monthSelect: { type: Object, default: null }
   },
   data() {
     return {
@@ -133,25 +146,8 @@ export default {
       secondSelected: null
     }
   },
-  computed: {
-    year_formated() {
-      return this.date.format('YYYY')
-    },
-    date_formated() {
-      return this.date.format('dddd DD MMM')
-    }
-  },
+  computed: {},
   methods: {
-    init() {
-      this.updateDate = null
-      this.monthList = []
-      this.monthListDay = []
-      this.selectDay = null
-      this.clicked = true
-      this.firstSelect = null
-      this.firstSelected = null
-      this.secondSelect = null
-    },
     isSelected(day) {
       if (this.selectDay === null) {
         if (this.firstSelected !== null) {
@@ -184,7 +180,6 @@ export default {
       this.firstSelected = day.unix()
     },
     selectTwoDays(day) {
-      // this.initValCalendar()
       if (this.clicked === true) {
         this.monthListDay = []
         this.monthList = []
@@ -214,9 +209,6 @@ export default {
           break
         case 'startEnd':
           this.selectTwoDays(day)
-          break
-        case 'multiple':
-          // this.selectTwoDays(day)
           break
       }
     },
@@ -278,27 +270,20 @@ export default {
 </script>
 
 <style>
-.datepicker {
-  z-index: 5;
-  background-color: #fff;
-  overflow: auto;
-}
-.datepicker__calendar {
+.datepicker_calendar {
   width: 315px;
   min-width: 315px;
-  margin: auto;
 }
-.datepicker__options {
+.datepicker_options {
   width: 200px;
-  border-left: solid 1px #ddd;
 }
-.datepicker__options button {
+.datepicker_options button {
   text-align: left;
   padding: 10px 5px;
   display: flex;
   width: 100%;
 }
-.datepicker__options button:focus {
+.datepicker_options button:focus {
   outline: none;
 }
 .datepicker__options button.selected,
@@ -307,13 +292,7 @@ export default {
   color: #fff;
 }
 
-.datepicker__header {
-  height: 100px;
-  color: #fff;
-  padding: 20px;
-  text-align: left;
-}
-.datepicker__day {
+.datepicker_day {
   height: 41px;
   width: 41px;
   line-height: 41px;
@@ -325,26 +304,22 @@ export default {
   color: #000;
   transition: color 450ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.datepicker__day:hover {
+.datepicker_day:hover {
   color: #fff;
 }
-.datepicker__day:hover .datepicker__day__effect {
+.datepicker_day:hover .datepicker_day_effect {
   transform: scale(1);
 }
 
-.datepicker__day.selected {
+.datepicker_day.selected {
   color: #fff;
 }
 
-.datepicker__day.selected .datepicker__day__effect {
+.datepicker_day.selected .datepicker_day_effect {
   transform: scale(1);
   opacity: 0.6;
 }
-
-.datepicker__day__text {
-  position: relative;
-}
-.datepicker__day__effect {
+.datepicker_day_effect {
   position: absolute;
   top: 2px;
   left: 2px;
@@ -354,65 +329,8 @@ export default {
   transition: color 450ms cubic-bezier(0.075, 0.82, 0.165, 1);
   transform: scale(0);
 }
-.datepicker__days {
-  position: relative;
-  overflow: hidden;
-  margin: 14px 14px 0;
-}
-.datepicker__year {
-  position: relative;
-  overflow: hidden;
-  height: 16px;
-  margin-bottom: 10px;
-  line-height: 16px;
-}
-.datepicker__date {
-  font-size: 32px;
-  line-height: 32px;
-  position: relative;
-  text-transform: capitalize;
-}
-.datepicker__week {
-  font-size: 12px;
-  line-height: 12px;
-  padding: 0 14px;
-  height: 12px;
-}
-.datepicker__weekday {
+.datepicker_weekday {
   width: 41px;
-  text-align: center;
-  float: left;
-}
-
-.datepicker__controls {
-  position: relative;
-  height: 56px;
-  line-height: 56px;
-  text-align: center;
-}
-.datepicker__month {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  text-transform: capitalize;
-}
-.datepicker__prev {
-  float: left;
-  cursor: pointer;
-  position: relative;
-  height: 20px;
-  width: 10px;
-  left: 25px;
-}
-.datepicker__next {
-  float: right;
-  cursor: pointer;
-  position: relative;
-  height: 20px;
-  width: 10px;
-  right: 25px;
 }
 .datepicker-slide-transition {
   opacity: 1;
