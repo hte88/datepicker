@@ -6,7 +6,7 @@
     >
       <div class="datepicker_options border-l bg-blue-400">
         <div class="h-20 text-white text-left p-4 bg-blue-400">
-          <div class="relative overflow-hidden mb-2 leading-3 h-3">
+          <div class="relative overflow-hidden mb-2 leading-5 h-5">
             {{ year }}
           </div>
           <div class="relative capitalize text-3xl leading-8">
