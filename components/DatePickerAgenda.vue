@@ -1,6 +1,5 @@
 <template>
   <div v-if="visible">
-    {{ date }}
     <div
       class="relative mt-3 bg-white overflow-auto z-10 border shadow rounded-lg flex"
       @click.stop
@@ -45,7 +44,7 @@
           <div
             v-for="day in days"
             :key="day.index"
-            class="datepicker_weekday text-center float-left cursor-pointer hover:text-blue-500"
+            class="w-1/7 text-center float-left cursor-pointer hover:text-blue-500"
             @click="selectDateByDay(day.long)"
           >
             {{ day.short }}
@@ -55,20 +54,20 @@
           <div
             v-for="day in days"
             :key="day.index"
-            class="datepicker_weekday text-center float-left"
+            class="w-1/7 text-center float-left"
           >
             {{ day.short }}
           </div>
         </div>
-        <div class="relative overflow-hidden mx-3 mt-3">
+        <div class="relative overflow-hidden flex-wrap flex mx-3 mt-3">
           <div
-            class="datepicker_day"
-            :style="{ width: getWeekStart() * 41 + 'px' }"
+            class="datepicker_day hover:text-white w-1/7 h-10 leading-10 text-center z-10 relative float-left cursor-pointer text-black"
+            :style="{ width: getWeekStart() * 14.2857143 + '%' }"
           ></div>
           <div
             v-for="day in getDays()"
             :key="day.i"
-            class="datepicker_day"
+            class="datepicker_day hover:text-white w-1/7 h-10 leading-10 text-center z-10 relative float-left cursor-pointer text-black"
             :class="{ selected: isSelected(day) }"
           >
             <div
@@ -135,7 +134,6 @@ export default {
         { short: 'Sa', long: 'samedi' },
         { short: 'Di', long: 'dimanche' }
       ],
-      newDate: null,
       updateDate: null,
       monthList: [],
       monthListDay: [],
@@ -155,7 +153,6 @@ export default {
       return this.date.clone().endOf('month')
     },
     month() {
-      console.log("this.date.format('MMMM'):", this.date.format('MMMM'))
       return this.date.format('MMMM')
     },
     year() {
@@ -182,12 +179,6 @@ export default {
             return true
         }
       }
-    },
-    initValCalendar() {
-      this.monthListDay = []
-      this.monthList = []
-      this.selectDay = null
-      this.secondSelect = null
     },
     selectOneDay(day) {
       this.$emit('valueInput', day.clone())
@@ -240,9 +231,7 @@ export default {
       return this.startMonth.weekday()
     },
     nextMonth() {
-      console.log(this.startMonth)
       let month = this.startMonth.add(1, 'M')
-      console.log(month)
       let year = this.year
       if (month.format('M') > 11) {
         year = moment(year)
@@ -250,10 +239,8 @@ export default {
           .format('YYYY')
       }
       month = month.format('MMMM')
-      this.month = month
-      this.year = year
-      // this.date = nouvelle date avec le nouveau mois
-      // this.$emit('dateUpdate', newDate)
+      const newDate = moment('01' + month + year, 'DD MMMM YYYY')
+      this.$emit('dateUpdate', newDate)
     },
     prevMonth() {
       let month = this.startMonth.subtract(1, 'M')
@@ -264,8 +251,8 @@ export default {
           .format('YYYY')
       }
       month = month.format('MMMM')
-      this.month = month
-      this.year = year
+      const newDate = moment('01' + month + year, 'DD MMMM YYYY')
+      this.$emit('dateUpdate', newDate)
     },
     selectDateByDay(day) {
       this.selectDay = day
@@ -312,20 +299,9 @@ export default {
 }
 
 .datepicker_day {
-  height: 41px;
-  width: 41px;
-  line-height: 41px;
-  text-align: center;
-  z-index: 10;
-  position: relative;
-  float: left;
-  cursor: pointer;
-  color: #000;
   transition: color 450ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.datepicker_day:hover {
-  color: #fff;
-}
+
 .datepicker_day:hover .datepicker_day_effect {
   transform: scale(1);
 }
@@ -347,18 +323,5 @@ export default {
   background-color: #63b3ed;
   transition: color 450ms cubic-bezier(0.075, 0.82, 0.165, 1);
   transform: scale(0);
-}
-.datepicker_weekday {
-  width: 41px;
-}
-.datepicker-slide-transition {
-  opacity: 1;
-  transition: all 0.3s;
-  transform: translateY(0);
-}
-.datepicker-slide-leave,
-.datepicker-slide-enter {
-  opacity: 0;
-  transform: translateY(-15px);
 }
 </style>

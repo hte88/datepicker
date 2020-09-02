@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ date }} (depuis le datepicker.vue)
     <DatePickerInput
       :type-input="typeInput"
       :label-input="label"
@@ -13,8 +12,8 @@
     <DatePickerAgenda
       :type-input="typeInput"
       :date="value"
-      @dateUpdate="$emit('input', $event)"
       :visible="isVisible"
+      @dateUpdate="$emit('input', $event)"
       @valueInput="sendValueInput"
       @update-multiple="multipleData"
       @update-date-start="updateStart"
@@ -22,13 +21,6 @@
       @actionSubmit="actionSubmit"
       @actionCancel="actionCancel"
     ></DatePickerAgenda>
-    <!-- <input
-      v-if="typeInput === 'select' && valueInput !== null"
-      type="text"
-      class="cursor-not-allowed mt-2 appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-white leading-normal w-full border h-10 border-grey-light rounded relative"
-      :value="valueInput"
-      disabled
-    /> -->
   </div>
 </template>
 <script>
@@ -48,16 +40,8 @@ export default {
         return moment()
       }
     },
-
     typeInput: { type: String, default: 'single' },
-    label: { type: String, default: null },
-    date: {
-      type: Object,
-      default: () => {
-        return moment()
-      }
-    },
-    format: { type: String, default: 'DD MMMM YYYY' }
+    label: { type: String, default: null }
   },
   data() {
     return {
@@ -69,12 +53,8 @@ export default {
   },
   computed: {},
   methods: {
-    formattedDate(data) {
-      return data.format(this.format)
-    },
     sendValueSelect(data) {
       if (data) {
-        console.log('data:>>>', data)
         this.$emit('input', data)
       }
     },

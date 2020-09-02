@@ -13,7 +13,9 @@
           value="Janvier"
           @input="setMonth($event.target.value)"
         >
-          <option selected value="null" disabled>Choose month</option>
+          <option selected value="null" disabled
+            >Choose your starting month</option
+          >
           <option v-for="month in months" :key="month" :value="month" class="">
             {{ month }}
           </option>
@@ -45,12 +47,12 @@
           type="text"
           :value="value"
           disabled
-          class="cursor-not-allowed appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-gray-200 flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
+          class="cursor-not-allowed appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
           @click="showDatepicker"
         />
         <div class="flex -mr-px">
           <span
-            class="flex items-center leading-normal bg-grey-lighter rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm"
+            class="flex items-center leading-normal bg-white rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm"
             @click="showDatepicker"
           >
             <font-awesome-icon
@@ -75,12 +77,12 @@
               type="text"
               :value="valueStart"
               disabled
-              class="cursor-not-allowed appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-gray-200 flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
+              class="cursor-not-allowed appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
               @click="showDatepicker"
             />
             <div class="flex -mr-px">
               <span
-                class="flex items-center leading-normal bg-grey-lighter rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm"
+                class="flex items-center leading-normal bg-white rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm"
                 @click="showDatepicker"
               >
                 <font-awesome-icon
@@ -102,12 +104,12 @@
               type="text"
               :value="valueEnd"
               disabled
-              class="cursor-not-allowed appearance-none text-gray-700  py-3 px-4 focus:outline-none bg-gray-200 flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
+              class="cursor-not-allowed appearance-none text-gray-700  py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px border h-10 border-grey-light rounded rounded-r-none relative"
               @click="showDatepicker"
             />
             <div class="flex -mr-px">
               <span
-                class="flex items-center leading-normal bg-grey-lighter rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm"
+                class="flex items-center leading-normal bg-white rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm"
                 @click="showDatepicker"
               >
                 <font-awesome-icon
@@ -133,12 +135,12 @@
           type="text"
           :value="value"
           disabled
-          class="cursor-not-allowed appearance-none text-gray-700 border rounded py-3 px-4 focus:outline-none bg-gray-200 flex-shrink flex-grow leading-normal w-px h-10 border-grey-light rounded-r-none relative"
+          class="cursor-not-allowed appearance-none text-gray-700 border rounded py-3 px-4 focus:outline-none bg-white flex-shrink flex-grow leading-normal w-px h-10 border-grey-light rounded-r-none relative"
           @click="showDatepicker"
         />
         <div class="flex -mr-px">
           <span
-            class="flex items-center leading-normal bg-grey-lighter rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm"
+            class="flex items-center leading-normal bg-white rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm"
             @click="showDatepicker"
           >
             <font-awesome-icon

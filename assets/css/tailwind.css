@@ -3,3 +3,7 @@
 @import 'tailwindcss/components';
 /* purgecss end ignore */
 @import 'tailwindcss/utilities';
+
+body {
+  background-image: url('~assets/img/dust_scratches.png');
+}
