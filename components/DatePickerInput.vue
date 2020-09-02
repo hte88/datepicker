@@ -176,11 +176,11 @@ export default {
     setMonth(value) {
       const newValue = moment('01' + value + '2020', 'DD MMMM YYYY')
       this.dateFromSelect = newValue
-      this.openDatepicke = true
-      this.$emit('valueSelect', newValue)
+      this.$emit('monthSelect', newValue)
       this.showDatepicker()
     },
     showDatepicker() {
+      this.openDatepicke = true
       this.$emit('showDatepicker', true)
     }
   }

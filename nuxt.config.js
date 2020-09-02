@@ -25,7 +25,9 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/tailwindcss'
   ],
-
+  purgeCSS: {
+    whitelistPatterns: [/svg.*/]
+  },
   modules: [
     '@nuxtjs/dotenv',
     [
@@ -40,7 +42,7 @@ export default {
             icons: ['fab']
           },
           {
-            set:'@fortawesome/free-regular-svg-icons',
+            set: '@fortawesome/free-regular-svg-icons',
             icons: ['far']
           }
         ]

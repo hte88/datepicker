@@ -4,13 +4,15 @@
       <div class="w-full border-b pb-10 mb-10">
         <h1 class="text-left text-xl uppercase font-semibold">
           Step 1 : Select
+          {{ date }} ici ???
         </h1>
         <h2 class=" font-semibold text-gray-500 mb-10">
           Select a month then a day
         </h2>
         <div class="w-full mb-3">
           <date-picker
-            :date="dateFromSelect"
+            :date="date"
+            @dateUpdate="date = $event"
             :type-input="'select'"
             :label="'By Month'"
           ></date-picker>
@@ -26,8 +28,8 @@
         <div class="w-full mb-3">
           <date-picker
             :date="dateFromSelect"
-            :type-input="'single'"
-            :label="'Date'"
+            type-input="single"
+            label="Date"
           ></date-picker>
         </div>
       </div>

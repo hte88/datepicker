@@ -1,5 +1,6 @@
 <template>
   <div v-if="visible">
+    {{ date }}
     <div
       class="relative mt-3 bg-white overflow-auto z-10 border shadow rounded-lg flex"
       @click.stop
@@ -115,11 +116,14 @@ moment.locale('fr')
 export default {
   components: {},
   props: {
-    date: { type: Object, default: null },
+    date: {
+      type: Object,
+      required: true
+    },
     visible: { type: Boolean, default: false },
-    typeInput: { type: String, default: null },
-    monthSelect: { type: Object, default: null }
+    typeInput: { type: String, default: 'select' }
   },
+
   data() {
     return {
       days: [
@@ -131,10 +135,7 @@ export default {
         { short: 'Sa', long: 'samedi' },
         { short: 'Di', long: 'dimanche' }
       ],
-      startMonth: this.date.clone().startOf('month'),
-      endMonth: this.date.clone().endOf('month'),
-      month: this.date.format('MMMM'),
-      year: this.date.format('YYYY'),
+      newDate: null,
       updateDate: null,
       monthList: [],
       monthListDay: [],
@@ -146,7 +147,21 @@ export default {
       secondSelected: null
     }
   },
-  computed: {},
+  computed: {
+    startMonth() {
+      return this.date.clone().startOf('month')
+    },
+    endMonth() {
+      return this.date.clone().endOf('month')
+    },
+    month() {
+      console.log("this.date.format('MMMM'):", this.date.format('MMMM'))
+      return this.date.format('MMMM')
+    },
+    year() {
+      return this.date.format('YYYY')
+    }
+  },
   methods: {
     isSelected(day) {
       if (this.selectDay === null) {
@@ -225,7 +240,9 @@ export default {
       return this.startMonth.weekday()
     },
     nextMonth() {
+      console.log(this.startMonth)
       let month = this.startMonth.add(1, 'M')
+      console.log(month)
       let year = this.year
       if (month.format('M') > 11) {
         year = moment(year)

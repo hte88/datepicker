@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ date }} (depuis le datepicker.vue)
     <DatePickerInput
       :type-input="typeInput"
       :label-input="label"
@@ -7,13 +8,12 @@
       :value-start="valueInputStart"
       :value-end="valueInputEnd"
       @showDatepicker="showDatepicker"
-      @valueSelect="sendValueSelect"
+      @monthSelect="sendValueSelect"
     ></DatePickerInput>
     <DatePickerAgenda
       :type-input="typeInput"
       :date="date"
       :visible="isVisible"
-      :month-select="valueSelect"
       @valueInput="sendValueInput"
       @update-multiple="multipleData"
       @update-date-start="updateStart"
@@ -41,9 +41,14 @@ export default {
     DatePickerAgenda
   },
   props: {
-    typeInput: { type: String, default: null },
+    typeInput: { type: String, default: 'single' },
     label: { type: String, default: null },
-    date: { type: Object, default: null },
+    date: {
+      type: Object,
+      default: () => {
+        return moment()
+      }
+    },
     format: { type: String, default: 'DD MMMM YYYY' }
   },
   data() {
@@ -51,8 +56,7 @@ export default {
       isVisible: false,
       valueInput: null,
       valueInputStart: null,
-      valueInputEnd: null,
-      valueSelect: null
+      valueInputEnd: null
     }
   },
   computed: {},
@@ -62,7 +66,9 @@ export default {
     },
     sendValueSelect(data) {
       if (data) {
-        this.valueSelect = data
+        console.log('data:>>>', data)
+        // this.date = data
+        this.$emit('dateUpdate', data)
       }
     },
     sendValueInput(data) {
