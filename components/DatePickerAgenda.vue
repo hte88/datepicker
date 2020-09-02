@@ -252,6 +252,8 @@ export default {
       month = month.format('MMMM')
       this.month = month
       this.year = year
+      // this.date = nouvelle date avec le nouveau mois
+      // this.$emit('dateUpdate', newDate)
     },
     prevMonth() {
       let month = this.startMonth.subtract(1, 'M')

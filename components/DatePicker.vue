@@ -12,7 +12,8 @@
     ></DatePickerInput>
     <DatePickerAgenda
       :type-input="typeInput"
-      :date="date"
+      :date="value"
+      @dateUpdate="$emit('input', $event)"
       :visible="isVisible"
       @valueInput="sendValueInput"
       @update-multiple="multipleData"
@@ -21,13 +22,13 @@
       @actionSubmit="actionSubmit"
       @actionCancel="actionCancel"
     ></DatePickerAgenda>
-    <input
+    <!-- <input
       v-if="typeInput === 'select' && valueInput !== null"
       type="text"
       class="cursor-not-allowed mt-2 appearance-none text-gray-700 py-3 px-4 focus:outline-none bg-white leading-normal w-full border h-10 border-grey-light rounded relative"
       :value="valueInput"
       disabled
-    />
+    /> -->
   </div>
 </template>
 <script>
@@ -41,6 +42,13 @@ export default {
     DatePickerAgenda
   },
   props: {
+    value: {
+      type: Object,
+      default: () => {
+        return moment()
+      }
+    },
+
     typeInput: { type: String, default: 'single' },
     label: { type: String, default: null },
     date: {
@@ -67,8 +75,7 @@ export default {
     sendValueSelect(data) {
       if (data) {
         console.log('data:>>>', data)
-        // this.date = data
-        this.$emit('dateUpdate', data)
+        this.$emit('input', data)
       }
     },
     sendValueInput(data) {

@@ -1,23 +1,28 @@
 <template>
-  <div class="container">
+  <div class="container mx-auto px-4 min-h-screen">
     <div class="w-full sm:w-4/5 md:w-4/5 lg:w-1/2 m-auto py-20 px-3">
       <div class="w-full border-b pb-10 mb-10">
         <h1 class="text-left text-xl uppercase font-semibold">
           Step 1 : Select
-          {{ date }} ici ???
         </h1>
+        <a
+          href="https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components"
+          >Lire cela</a
+        >
         <h2 class=" font-semibold text-gray-500 mb-10">
           Select a month then a day
         </h2>
         <div class="w-full mb-3">
           <date-picker
-            :date="date"
-            @dateUpdate="date = $event"
-            :type-input="'select'"
-            :label="'By Month'"
+            v-model="date"
+            type-input="select"
+            label="By Month"
           ></date-picker>
+
+          <p>La date sélectionné : {{ date }}</p>
         </div>
       </div>
+
       <div class="w-full border-b pb-10 mb-10">
         <h1 class="text-left text-xl uppercase font-semibold">
           Step 2 : Single
@@ -27,10 +32,12 @@
         </h2>
         <div class="w-full mb-3">
           <date-picker
-            :date="dateFromSelect"
+            v-model="date"
             type-input="single"
             label="Date"
           ></date-picker>
+
+          <p>La date sélectionné : {{ date }}</p>
         </div>
       </div>
       <div class="w-full border-b pb-10 mb-10">
@@ -42,7 +49,7 @@
         </h2>
         <div class="w-full mb-3">
           <date-picker
-            :date="dateFromSelect"
+            v-model="date"
             :type-input="'startEnd'"
             :label="null"
           ></date-picker>
@@ -57,7 +64,7 @@
         </h2>
         <div class="w-full mb-3">
           <date-picker
-            :date="dateFromSelect"
+            v-model="date"
             :type-input="'multiple'"
             :label="'Multiple'"
           ></date-picker>
@@ -120,11 +127,7 @@ export default {
   components: { DatePicker },
   data() {
     return {
-      date: moment(),
-      dateFromSelect: moment(),
-      dateFormat: 'DD MM YYYY',
-      dateEnd: '',
-      multiple: []
+      date: moment()
     }
   },
   computed: {},
@@ -133,10 +136,6 @@ export default {
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-}
 table td,
 table th {
   border: solid 1px #ddd;
