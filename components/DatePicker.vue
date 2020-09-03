@@ -60,6 +60,7 @@ export default {
     },
     sendValueInput(data) {
       this.valueInput = data.format('dddd DD MMMM YYYY')
+      this.$emit('input', data)
     },
     multipleData(data) {
       const result = data.map((item) => {

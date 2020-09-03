@@ -22,7 +22,7 @@
         <h1 class="text-left text-xl uppercase font-semibold">
           Step 2 : Single
         </h1>
-        <h2 class=" font-semibold text-gray-800 mb-10">
+        <h2 class="font-semibold text-gray-800 mb-10">
           Select a single day
         </h2>
         <div class="w-full mb-3">
